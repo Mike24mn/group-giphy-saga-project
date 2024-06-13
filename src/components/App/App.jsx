@@ -69,19 +69,23 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useState } from 'react';
 
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState('');
   const dispatch = useDispatch();
   const gifList = useSelector((state) => state.gifList || []);
 
-  useEffect(() => {
-    dispatch({ type: 'FETCH_GIF' });
-  }, []);
+  const handleSearch = (event) => {
+    event.preventDefault()
+    dispatch({ type: 'FETCH_GIF', payload: searchTerm });
+  };
+  // useEffect(() => {
+  //   dispatch({ type: 'FETCH_GIF', payload: searchTerm});
+  // }, []);
 
-  function updateSearchQuery() {
-    
-  }
+
 
   return (
     <div>
@@ -89,14 +93,15 @@ function App() {
         <h1>Search Giphy API</h1>
       </header>
       {/* <button onClick={() => dispatch({ type: 'FETCH_GIF' })}>Fetch Gifs</button> */}
-      <form onSubmit={updateSearchQuery}>
+      <form>
                 <input 
                 type="text"
                 placeholder="Search"
-                value=""
+                value={searchTerm}
+                onChange={(event) => setSearchTerm(event.target.value)}
 
                 />
-                <button onClick={updateSearchQuery}>Search</button>
+                <button onClick={handleSearch}>Search</button>
               </form>
               <hr/>
       <div >
