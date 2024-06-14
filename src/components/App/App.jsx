@@ -75,6 +75,7 @@ function App() {
   const gifList = useSelector((state) => state.gifList || []);
   const [showFav, setFav] = useState({});
   const [isStartPage, setIsStartPage] = useState(true);
+  
 
   const StartPage = () => {
     return <div>Page A Yo</div>;

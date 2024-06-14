@@ -7,10 +7,13 @@ import App from "../App/App";
 
 
 const FavPage = () => {
+
   return (
     <div>
       <header>This is our fav page so far</header>
       <p>Page B Yo</p>
+      
+      
     </div>
   );
 };
