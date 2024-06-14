@@ -16,6 +16,18 @@ const gifList = (state = [], action) => {
   return state;
 };
 
+const favState = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_FAV':
+      return {
+        ...state,
+        [action.payload]: !state[action.payload]
+      };
+    default:
+      return state;
+  }
+}
+
 // Saga function to handle FETCH_GIF action
 function* fetchGif(action) {
   try {
@@ -33,9 +45,19 @@ function* fetchGif(action) {
   }
 }
 
+function* setFav (action) {
+  try {
+    yield axios.post("/api/favorites", action.payload);
+    yield put({ type: "SET_FAV", payload: action.payload });
+  } catch (error) {
+    console.log("error in post");
+  }
+}
+
 // Root Saga to initialize and watch for FETCH_GIF action
 function* rootSaga() {
   yield takeLatest('FETCH_GIF', fetchGif);
+  yield takeLatest('ADD_FAV', setFav)
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -44,6 +66,7 @@ const sagaMiddleware = createSagaMiddleware();
 const storeInstance = createStore(
   combineReducers({
     gifList,
+    favState,
   }),
   applyMiddleware(sagaMiddleware, logger),
 );

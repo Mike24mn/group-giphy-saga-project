@@ -76,6 +76,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const dispatch = useDispatch();
   const gifList = useSelector((state) => state.gifList || []);
+  let [showFav, setFav] = useState({})
 
   const handleSearch = (event) => {
     event.preventDefault()
@@ -85,6 +86,14 @@ function App() {
   //   dispatch({ type: 'FETCH_GIF', payload: searchTerm});
   // }, []);
 
+  const handleFavorite = (id) => {
+    const newFavState = {
+        ...showFav,
+        [id]: !showFav[id],
+    }
+    setFav(newFavState)
+    dispatch({ type: 'SET_FAV', payload: {id, favorite: newFavState[id]} });
+  }
 
 
   return (
@@ -109,6 +118,9 @@ function App() {
           gifList.map((giphy) => (
             <div key={giphy.id}>
               <img src={giphy.images.original.url} alt="Giphy" />
+              <button data-testid="toggleFav" onClick={() => handleFavorite(giphy.id)}>  
+                    {showFav[giphy.id] ? "Unfavorite" : "Favorite"}
+          </button>
 
             </div>
           ))
