@@ -1,6 +1,6 @@
 # PROJECT NAME
 
-The Great Pizza Parlor!
+The Great Giphy Saga!
 
 Collaborators: Tierra, Michael & Sumeiya
 
