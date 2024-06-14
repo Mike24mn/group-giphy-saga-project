@@ -4,7 +4,6 @@
 // import { HashRouter as Router, Route, Link, useHistory, useLocation } from "react-router-dom";
 // import storeInstance from "../../index";
 
-
 // function App() {
 //   let [giphyList, setGiphyList] = useState([]);
 //   const dispatch = useDispatch();
@@ -15,10 +14,10 @@
 //   }, []);
 
 //   // route issue in below axios get, use ./routes/giphy.router instead I believe
-//   // data structure is a problem for future. 
+//   // data structure is a problem for future.
 
 //   const getGiphy = () => {
-//     dispatch ({type: 'FETCH_GIF'}) 
+//     dispatch ({type: 'FETCH_GIF'})
 //     // axios
 //     //   .get('.')
 //     //   .then((response) => {
@@ -44,8 +43,6 @@
 //     //     console.error('Error response:', err.response);
 //     //   });
 //   };
-  
-
 
 //   // create function onButtonReset that grabs new data
 //   // Renders the entire app on the DOM
@@ -67,20 +64,25 @@
 // }
 // export default App;
 
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
-
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import FavPage from "../FavPage/FavPage";
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
   const gifList = useSelector((state) => state.gifList || []);
-  let [showFav, setFav] = useState({})
+  const [showFav, setFav] = useState({});
+  const [isStartPage, setIsStartPage] = useState(true);
+
+  const StartPage = () => {
+    return <div>Page A Yo</div>;
+  };
 
   const handleSearch = (event) => {
-    event.preventDefault()
-    dispatch({ type: 'FETCH_GIF', payload: searchTerm });
+    event.preventDefault();
+    dispatch({ type: "FETCH_GIF", payload: searchTerm });
   };
   // useEffect(() => {
   //   dispatch({ type: 'FETCH_GIF', payload: searchTerm});
@@ -88,53 +90,64 @@ function App() {
 
   const handleFavorite = (id) => {
     const newFavState = {
-        ...showFav,
-        [id]: !showFav[id],
-    }
-    setFav(newFavState)
-    dispatch({ type: 'SET_FAV', payload: {id, favorite: newFavState[id]} });
-  }
+      ...showFav,
+      [id]: !showFav[id],
+    };
+    setFav(newFavState);
+    dispatch({ type: "SET_FAV", payload: { id, favorite: newFavState[id] } });
+  };
 
+  function togglePage() {
+    setIsStartPage(!isStartPage);
+  }
 
   return (
     <div>
       <header className="App-header">
         <h1>Search Giphy API</h1>
+        <button onClick={togglePage}>
+          {isStartPage ? "Favorite View" : "Search View"}
+        </button>
       </header>
-      {/* <button onClick={() => dispatch({ type: 'FETCH_GIF' })}>Fetch Gifs</button> */}
-      <form>
-                <input 
-                type="text"
-                placeholder="Search"
-                value={searchTerm}
-                onChange={(event) => setSearchTerm(event.target.value)}
 
-                />
-                <button onClick={handleSearch}>Search</button>
-              </form>
-              <hr/>
-      <div >
-        {gifList.length > 0 ? (
-          gifList.map((giphy) => (
-            <div key={giphy.id}>
-              <img src={giphy.images.original.url} alt="Giphy" />
-              <button data-testid="toggleFav" onClick={() => handleFavorite(giphy.id)}>  
+      {isStartPage && (
+        <div>
+          <form onSubmit={handleSearch}>
+            <input
+              type="text"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
+            <button type="submit">Search</button>
+          </form>
+          <hr />
+          <div>
+            {gifList.length > 0 ? (
+              gifList.map((giphy) => (
+                <div key={giphy.id}>
+                  <img src={giphy.images.original.url} alt="Giphy" />
+                  <button
+                    data-testid="toggleFav"
+                    onClick={() => handleFavorite(giphy.id)}
+                  >
                     {showFav[giphy.id] ? "Unfavorite" : "Favorite"}
-          </button>
+                  </button>
+                </div>
+              ))
+            ) : (
+              <p>No GIFs found</p>
+            )}
+          </div>
+        </div>
+      )}
 
-            </div>
-          ))
-        ) : (
-          <p>No GIFs found</p>
-        )}
-      </div>
+      {!isStartPage && <FavPage />}
     </div>
   );
 }
 
 export default App;
 
-// Create a search input 
-  // Calls a function that gives ability to search. 
-
-
+// Create a search input
+// Calls a function that gives ability to search.

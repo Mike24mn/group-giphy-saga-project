@@ -47,7 +47,7 @@ function* fetchGif(action) {
 
 function* setFav (action) {
   try {
-    yield axios.post("/api/favorites", action.payload);
+    yield axios.post("/", action.payload);
     yield put({ type: "SET_FAV", payload: action.payload });
   } catch (error) {
     console.log("error in post");
