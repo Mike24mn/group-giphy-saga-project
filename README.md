@@ -1,63 +1,66 @@
-# Group Giphy Saga Project: Search and Favorites
+# PROJECT NAME
 
-This week you will be building a Giphy Searching and Favoriting application which allows the user to save images and sort them into categories.
+The Great Pizza Parlor!
 
-In this project you will need to utilize React, Redux, Redux-Saga and integrate them with a third-party API. Once your team has established a solid starting point, be sure to use branches and pull requests to facilitate collaboration.
+Collaborators: Tierra, Michael & Sumeiya
 
-## Team Setup
+## Description
 
-**Do not clone this repository.** Instead, have one person create a new repo by clicking on the **Use this template** button to make a copy. Make your team collaborators on the new repo you have created. The rest of the team members that did not make the initial repo will **clone directly** from the person who created the new repo, **do not fork** the repo.
+_Duration: 2 day project
 
-## Create Database and Tables
+Welcome to the Giphy Searching and Favoriting application! This tool allows you to search for GIFs using the Giphy API, save your favorite images, and organize them into categories for easy access.
 
-See the `database.sql` file for database setup and details. It offers some of the SQL to get you started but you'll need to set up your tables and the relationships between them.
+Key Features:
 
-## Development Setup Instructions
+Search for GIFs: Enter a search term and browse through the results.
+Favorite GIFs: Save your favorite GIFs to view later.
+Categorize Favorites: Organize your favorite GIFs into custom categories.
 
-- Run `npm install`.
-    - Be sure to take stock of `package.json` to see which dependencies you'll need to add.
-- Start postgres if not running already by using opening up the [Postgres.app](https://postgresapp.com)
-- Run `npm run server` to start the server.
-- Run `npm run client` to start the client.
-- Navigate to `localhost:5173`.
 
-## Base Features
 
-You will need 2 views for the base features. You should put some thought into the UI and how to style it.
+## Screen Shot
 
-### Search View
+![screenshot](./Screenshot.png)
 
-- Allow a user to enter a search string and submit a search request.
-- Query the `Giphy API Search Endpoint` with the given search string **FROM THE SERVER**.
-- Display the results on the DOM.
-- Allow a user to "favorite" any of the resulting images. You'll need to think about what information to save to your own database. Generally you only store the minimum needed to show this image again on the **Favorites View**.
 
-### Favorites View
 
-- Allow a user to see all of the Giphy images they have made a favorite. The actual images need to appear on the DOM.
-- Allow a user to set a category for a favorite image.
-    - Each favorite image can only have one category at a time.
-    - The category needs to be one of the categories in the database.
+### Prerequisites
 
-## Existing Router Files
+Link to software that is required to install the app (e.g. node).
 
-You are given two router modules on the server with "stubs" for the routes you may need.
+- [Node.js](https://nodejs.org/en/)
+- [Postgres](https://www.postgresql.org/download/)
+- [Postico](https://eggerapps.at/postico/)
+- [GiphyAPI](https://developers.giphy.com/)
 
-- `GET /api/categories` (complete)
-    - Returns an array of all categories from the table ordered by name.
 
-- `POST /api/favorites` (incomplete)
-    - For adding a new favorite image. You'll need to think about what is needed. Does it need a category?
+## Installation
 
-- `PUT /api/favorites/:id` (incomplete)
-    - For setting a category on an image. It expects both a route parameter and data body. Feel free to change it as needed.
+1. Create a database named `giphy_search_favorites`,
+2. The queries in the `database.sql` file are set up to create all the necessary tables and populate the needed data to allow the application to run correctly. The project is built on postgress, so you will need to make sure to have that installed. We recommend using Postico to run those queries as that was used to create the queries, 
+3. Open up your editor of choice and run an `npm install`
+5. Run `npm run server` in your terminal
+6. Run `npm run client` in your terminal
+7. The `npm run client` command will open up a new browser tab for you!
 
-## Stretch Features
+## Usage
+-Home page displays the search engine, which is just a search input and button. 
+-You can search any 
 
-1. Allow favorites to be removed from favorites.
-1. Allow for a favorite to have **many categories** instead of just one.
-1. Implement a pagination feature for the Giphy search results.
-1. Add another view that allows a user to manage the categories:
-    - User should be able to create a new category.
-    - User should be able to edit an existing category.
-    - User should be able to delete/remove an existing category.
+
+## Built With
+
+- *SQL
+- *Express
+- *React
+- *Redux
+- *Node
+- *Redux Saga
+
+## Up and Coming
+- Complete favorites page, so gifs added to favorites can show up all on one page. 
+- Ability to assign gifs to categories
+
+
+
+
